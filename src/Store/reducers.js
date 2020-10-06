@@ -5,7 +5,8 @@ const initialState =
         isLoggedOn: false,
         loginError: null,
         userData: {},
-        booksList: []
+        booksList: [],
+        bookSelected: null
     };
 
 export default function rootReducer(state = initialState, action){
@@ -20,7 +21,10 @@ export default function rootReducer(state = initialState, action){
             return {...state, isLoggedOn : false};
         case "GET_BOOKS_LIST_SUCCEED":
             console.log("action.booksList : ", action.booksList);
+            console.log("action.booksList : ", action.booksSearch);
             return {...state, booksList : action.booksList};
+        case "BOOK_SELECTED":
+            return {...state, bookSelected : action.book};
         default:
             return state;
     }

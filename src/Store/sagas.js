@@ -1,5 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as services from '../services/services'
+import {toast} from "react-toastify";
 
 function* onLogin (action) {
     console.log("onLogin");
@@ -22,13 +23,52 @@ function* getBooksList () {
     }
 }
 
+function* purchaseBook (action) {
+    console.log("purchaseBook");
+    try {
+        return yield call(services.purchaseBook, action.book_id);
+   } catch (e) {
+   }
+}
+
+function* updateBook (action) {
+    console.log("updateBook");
+    try {
+        yield call(services.updateBook, action.title, action.publisher, action.author, action.id);
+        yield put({type: "GET_BOOKS_LIST"});
+    } catch (e) {
+    }
+}
+
+function* createBook (action) {
+    console.log("createBook");
+    try {
+        yield call(services.createBook, action.title, action.publisher, action.author);
+        yield put({type: "GET_BOOKS_LIST"});
+
+    } catch (e) {
+    }
+}
+
+function* deleteBook (action) {
+    console.log("deleteBook");
+    try {
+        yield call(services.deleteBook,  action.book_id);
+        yield put({type: "GET_BOOKS_LIST"});
+    } catch (e) {
+    }
+}
 
 
 export function* mySaga() {
     yield takeEvery("LOG_IN", onLogin);
     yield takeEvery("GET_BOOKS_LIST", getBooksList);
-    // yield takeEvery("ON_GET_CLIPS", onGetClips);
-    // yield takeEvery("ON_DELETE_URL", onDeleteUrl);
+    yield takeEvery("PURCHASE_BOOK", purchaseBook);
+    yield takeEvery("UPDATE_BOOK", updateBook);
+    yield takeEvery("DELETE_BOOK", deleteBook);
+    yield takeEvery("CREATE_BOOK", createBook);
+
+
 
 }
 

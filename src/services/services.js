@@ -7,10 +7,10 @@ export const login = async (email, password) => {
     try {
         let res = await axios.post(`http://localhost:3001/user/login`, {email : email, password: password});
         console.log("res : ", res);
-        if (res.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(res.data));
+        if (res.data.user.token) {
+            localStorage.setItem("user", JSON.stringify(res.data.user.token));
         }
-        return res.data;
+        return res.data.user;
     }
     catch (err) {
         throw err;
@@ -29,21 +29,52 @@ export const getBooksList = async () => {
     }
 };
 
-export const getClips = async (email) => {
+export const purchaseBook = async (book_id) => {
     try {
-        return await axios.get(`http://localhost:8080/getClips/${email}`).data;
+        let res= await axios.post(`http://localhost:3001/user/books/purchase`, {book_id: book_id}, { headers: authHeader() });
+        console.log("res purchaseBook : ", res);
+        return res.data.message;
     }
     catch (err) {
+        console.log("err purchaseBook: ", err.message);
         throw err;
     }
 };
 
-export const deleteUrl = async (email, url) => {
+export const updateBook = async (title, publisher, author, id) => {
     try {
-        await axios.post(`http://localhost:8080/deleteClip`, {email: email, url: url}).data;
-        return await getClips(email);
+        let res= await axios.put(`http://localhost:3001/user/book/update`, {title: title, publisher: publisher, author: author, id: id}, { headers: authHeader() });
+        console.log("res updateBook : ", res);
+        return res.data;
     }
     catch (err) {
+        console.log("err purchaseBook: ", err.message);
         throw err;
     }
 };
+
+export const createBook = async (title, publisher, author) => {
+    try {
+        let res= await axios.post(`http://localhost:3001/user/book/create`, {title: title, publisher: publisher, author: author}, { headers: authHeader() });
+        console.log("res createBook : ", res);
+        return res.data;
+    }
+    catch (err) {
+        console.log("err createBook: ", err.message);
+        throw err;
+    }
+};
+
+
+export const deleteBook = async (book_id) => {
+    try {
+        let res= await axios.delete(`http://localhost:3001/user/book/delete/${book_id}`, { headers: authHeader() });
+        console.log("res deleteBook : ", res);
+        return res.data;
+    }
+    catch (err) {
+        console.log("err purchaseBook: ", err.message);
+        throw err;
+    }
+};
+

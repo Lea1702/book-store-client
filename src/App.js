@@ -9,52 +9,15 @@ import {
 import {Login} from "./components/Login/index"
 import {Logout} from "./components/Logout"
 import {SearchBook} from "./components/SearchBook"
+import {Purchase} from "./components/Purchase"
+import {AdminArea} from "./components/AdminArea/index"
 
 import * as actionCreator from "./Store/actions"
 import {connect} from "react-redux";
+import {Create} from "./components/AdminArea/create";
 
-
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true
-        setTimeout(cb, 100) // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false
-        setTimeout(cb, 100) // fake async
-    }
-}
-
-const Public = () => <h3>Public</h3>
-const Protected = () => <h3>Protected</h3>
-
-
-
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route {...rest} render={(props) => (
-        fakeAuth.isAuthenticated === true
-            ? <Component {...props} />
-            : <Redirect to={{
-                pathname: '/login',
-                state: { from: props.location }
-            }} />
-    )} />
-)
-
-const AuthButton = withRouter(({ history }) => (
-    fakeAuth.isAuthenticated
-        ? <p>
-            Welcome! <button onClick={() => {
-            fakeAuth.signout(() => history.push('/'))
-        }}>Sign out</button>
-        </p>
-        : <p>You are not logged in.</p>
-))
 
 class App extends React.Component {
-
 
     componentDidMount() {
         console.log("in here");
@@ -76,12 +39,18 @@ class App extends React.Component {
                         <li><Link to="/admin">Admin Page</Link></li>
                     </ul>
 
-                    <Route path="/public" component={Public}>
-
-
+                    <Route path="/public" >
                         {this.props.booksList.length === 0 ?
                             <h4>Waiting for books...</h4> :
-                            <SearchBook booksList={this.props.booksList}/>
+                            <div>
+                                <SearchBook bookSelected={this.props.bookSelected} booksList={this.props.booksList} selectBook={this.props.selectBook} />
+                                {console.log("this.props.bookSelected : ", this.props.bookSelected)}
+                                {this.props.bookSelected ?
+                                <Purchase bookSelected={this.props.bookSelected} isLoggedOn={this.props.isLoggedOn}
+                                          purchaseBook={this.props.purchaseBook}
+                                />:
+                                    null}
+                            </div>
                         }
                     </Route>
                     <Route path="/admin" >
@@ -95,12 +64,18 @@ class App extends React.Component {
                             this.props.isLoggedOn ?
 
                                 this.props.booksList.length === 0 ?
-                                    <h4>Waiting for books...</h4> :
-                                    <SearchBook booksList={this.props.booksList}/>
+                                    <div>
+                                        <Create onCreateBook={this.props.onCreateBook}/>
+                                        <h4>No books</h4>
+                                    </div>:
+                                    <AdminArea booksList={this.props.booksList}  selectBook={this.props.selectBook}
+                                               bookSelected={this.props.bookSelected} onUpdateBook={this.props.onUpdateBook}
+                                               onCreateBook={this.props.onCreateBook} onDeleteBook={this.props.onDeleteBook}
+                                               getBooksList={this.props.getBooksList}
+                                    />
                                         :
                                 <h2>You have to login</h2>}
                     </Route>
-                    <PrivateRoute path='/protected' component={Protected}/>
                 </div>
             </Router>
         )
@@ -112,7 +87,8 @@ const mapStateToProps = (state) => {
     return {
         isLoggedOn: state.isLoggedOn,
         loginError: state.loginError,
-        booksList: state.booksList
+        booksList: state.booksList,
+        bookSelected: state.bookSelected
     }
 };
 
@@ -120,7 +96,13 @@ const mapDispatchToProps = dispatch => {
     return{
         onLogin: (email, password) => dispatch(actionCreator.onLogIn(email, password)),
         onLogout:  () => dispatch(actionCreator.onLogout()),
-        getBooksList:  () => dispatch(actionCreator.getBooksList())
+        getBooksList:  () => dispatch(actionCreator.getBooksList()),
+        selectBook: (book) => dispatch(actionCreator.selectBook(book)),
+        purchaseBook: (book_id) => dispatch(actionCreator.purchaseBook(book_id)),
+        onUpdateBook: (title, publisher, author, id) => dispatch(actionCreator.onUpdateBook(title, publisher, author, id)),
+        onDeleteBook: (book_id) => dispatch(actionCreator.onDeleteBook(book_id)),
+        onCreateBook: (title, publisher, author) => dispatch(actionCreator.onCreateBook(title, publisher, author)),
+
     }
 };
 
