@@ -7,9 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {Login} from './Login/index'
 import {Logout} from "./Logout";
+import {Signin} from "./Signin";
+
 import {Link} from "react-router-dom";
-
-
 
 
 export  class MenuBar extends React.Component {
@@ -20,12 +20,14 @@ export  class MenuBar extends React.Component {
                         <Typography variant="h6" >
                             Books shop
                         </Typography>
+
+                        <Link to="/public">Public Page</Link>
+                        <Link to="/admin">Admin Page</Link>
                         { this.props.isLoggedOn ?
                             <Logout onLogout={this.props.onLogout}/>:
                             <Login onLogin={this.props.onLogin}/>
                         }
-                        <Link to="/public">Public Page</Link>
-                        <Link to="/admin">Admin Page</Link>
+                        <Signin  onSignin={this.props.onSignin} />
                     </Toolbar>
                 </AppBar>
         )

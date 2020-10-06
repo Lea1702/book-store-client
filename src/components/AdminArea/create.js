@@ -18,6 +18,7 @@ export  class Create extends Component {
         try {
             this.props.onCreateBook(this.state.title, this.state.publisher, this.state.author);
             toast("Book created successfully !");
+            this.setState({"create": false})
             this.props.getBooksList();
         }
         catch {
@@ -28,9 +29,9 @@ export  class Create extends Component {
 
     render() {
         return (
-            <div>
+            <div >
                     {this.state.create?
-                        <div className="Login">
+                        <div className="Login update">
 
                         <label>Title</label>
                 <input value={this.state.title}
@@ -41,10 +42,10 @@ export  class Create extends Component {
                 <label>Publisher</label>
                 <input  value={this.state.publisher}
                        onChange={e => this.setState({"publisher": e.target.value})} type="text"/>
-                <Button variant="contained" color="primary" disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Create</Button>
-                        <Button variant="contained" color="primary" onClick={() => this.setState({"create": false})}>Cancel</Button>
+                <Button className="create" variant="contained" color="primary" disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Create</Button>
+                        <Button  className="create" variant="contained" color="primary" onClick={() => this.setState({"create": false})}>Cancel</Button>
                         </div>:
-                        <Button variant="contained" color="primary" onClick={() => this.setState({"create": true})}>Create</Button>                        }
+                        <Button  className="create" variant="contained" color="primary" onClick={() => this.setState({"create": true})}>Create</Button>                        }
                 </div>
         );
     }

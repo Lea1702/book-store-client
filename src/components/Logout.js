@@ -12,7 +12,7 @@ export  class Logout extends React.Component {
     render(){
         return (
 
-                <Button variant="contained" color="primary" onClick={(e) => this.handleSubmit(e)}>Log out</Button>
+                <Button variant="contained" color="inherit"  onClick={(e) => this.handleSubmit(e)}>Log out</Button>
 
             )
     }

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import Login from "../../Containers/Login";
 import {SearchBook} from "../SearchBook";
 import {FormControl} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {Create} from "./create";
 import Button from "@material-ui/core/Button";
+import {connect} from "react-redux";
 
-export  class Update extends Component {
+export class Update extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +22,7 @@ export  class Update extends Component {
         try {
             this.props.onUpdateBook(this.state.title, this.state.publisher, this.state.author, this.props.bookSelected.id);
             toast("Book updated successfully !");
+            this.setState({"update": false})
             this.props.getBooksList();
         }
         catch {
@@ -55,4 +56,11 @@ export  class Update extends Component {
     }
 
 }
+const mapStateToProps = (state) => {
+    return {
+        bookSelected: state.bookSelected
+    }
+};
+
+export default connect(mapStateToProps)(Update)
 

@@ -3,8 +3,12 @@ import Searchable from 'react-searchable-dropdown';
 import * as actionCreator from "../Store/actions";
 import {connect} from "react-redux";
 import "./style.css"
-export class SearchBook extends React.Component {
 
+export class SearchBook extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSelect = this.handleSelect.bind(this);
+    }
 
     componentWillMount() {
         this.getOptionsBooksList();
@@ -16,7 +20,7 @@ export class SearchBook extends React.Component {
             console.log("this.props.booksList[i].id : ", this.props.booksList[i].id);
             if(this.props.booksList[i].id === option.value){
                 console.log("hello");
-                this.props.selectBook(this.props.booksList[i]);
+                this.props.dispatch(actionCreator.selectBook(this.props.booksList[i]));
                 break;
             }
         }
@@ -45,6 +49,6 @@ export class SearchBook extends React.Component {
         />
             )
     }
-
-
 }
+
+export default connect()(SearchBook)

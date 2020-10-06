@@ -22,7 +22,7 @@ input {
     padding: 5% 5%;
     border: 1px solid #ccc;
     border-radius: 4%;
-    margin: 2% 30% 2% 30%;
+    margin: 2% 30% 2% 15%;
     position: fixed;
     background-color: white;
     width: 20%;
@@ -51,6 +51,9 @@ label {
     margin: 0 0 5% 45% !important;
 }
 
+.button1 {
+    margin-left: 45% !important;
+}
 .update {
     margin: -8% 30% 2% 30% !important;
 }

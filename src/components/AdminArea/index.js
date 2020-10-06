@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import Login from "../../Containers/Login";
-import {SearchBook} from "../SearchBook";
+import SearchBook from "../SearchBook";
 import {Update} from "./update";
 import {Delete} from "./delete";
 
@@ -18,6 +17,7 @@ export class AdminArea extends Component {
                         <Update bookSelected={this.props.bookSelected} onUpdateBook={this.props.onUpdateBook}                                                getBooksList={this.props.getBooksList}
                                 getBooksList={this.props.getBooksList}
                         />
+
                         <Delete bookSelected={this.props.bookSelected} onDeleteBook={this.props.onDeleteBook}                                                getBooksList={this.props.getBooksList}
                                 getBooksList={this.props.getBooksList}
                         />

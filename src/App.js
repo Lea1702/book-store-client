@@ -3,14 +3,9 @@ import {
     BrowserRouter as Router,
     Link,
     Route,
-    Redirect,
-    withRouter
 } from 'react-router-dom'
-import {Login} from "./components/Login/index"
-import {Logout} from "./components/Logout"
-import {SearchBook} from "./components/SearchBook"
-import {Purchase} from "./components/Purchase"
 import {AdminArea} from "./components/AdminArea/index"
+import {CustomerArea} from "./components/CustomerArea/index"
 
 import * as actionCreator from "./Store/actions"
 import {connect} from "react-redux";
@@ -21,36 +16,20 @@ import {MenuBar} from "./components/AppBar";
 class App extends React.Component {
 
     componentDidMount() {
-        console.log("in here");
         this.props.getBooksList();
     };
+
 
     render() {
         return (
             <Router>
-                <MenuBar onLogin={this.props.onLogin}  onLogout={this.props.onLogout}/>
+                <MenuBar isLoggedOn={this.props.isLoggedOn}  onLogin={this.props.onLogin}  onLogout={this.props.onLogout}
+                         onSignin={this.props.onSignin}/>
                 <div>
                     <Route path="/public" >
-                        {this.props.booksList.length === 0 ?
-                            <h4>Waiting for books...</h4> :
-                            <div>
-                                <SearchBook bookSelected={this.props.bookSelected} booksList={this.props.booksList} selectBook={this.props.selectBook} />
-                                {console.log("this.props.bookSelected : ", this.props.bookSelected)}
-                                {this.props.bookSelected ?
-                                <Purchase bookSelected={this.props.bookSelected} isLoggedOn={this.props.isLoggedOn}
-                                          purchaseBook={this.props.purchaseBook}
-                                />:
-                                    null}
-                            </div>
-                        }
+                        <CustomerArea isLoggedOn={this.props.isLoggedOn} bookSelected={this.props.bookSelected} booksList={this.props.booksList} selectBook={this.props.selectBook}  purchaseBook={this.props.purchaseBook}/>
                     </Route>
                     <Route path="/admin" >
-                        {
-                            console.log("this.props.isLoggedOn : ", this.props.isLoggedOn)
-                        }
-                        {
-                            console.log("this.props.booksList : ", this.props.booksList)
-                        }
                         {
                             this.props.isLoggedOn ?
 
@@ -74,6 +53,7 @@ class App extends React.Component {
 }
 
 
+
 const mapStateToProps = (state) => {
     return {
         isLoggedOn: state.isLoggedOn,
@@ -93,7 +73,7 @@ const mapDispatchToProps = dispatch => {
         onUpdateBook: (title, publisher, author, id) => dispatch(actionCreator.onUpdateBook(title, publisher, author, id)),
         onDeleteBook: (book_id) => dispatch(actionCreator.onDeleteBook(book_id)),
         onCreateBook: (title, publisher, author) => dispatch(actionCreator.onCreateBook(title, publisher, author)),
-
+        onSignin: (email, password, type) => dispatch(actionCreator.onSignin(email, password, type))
     }
 };
 

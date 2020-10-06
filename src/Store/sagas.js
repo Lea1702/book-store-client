@@ -13,6 +13,15 @@ function* onLogin (action) {
     }
 }
 
+function* onSignin (action) {
+    try {
+        const user_data = yield call(services.signin, action.email, action.password, action.type1);
+        yield put({type: "SIGNIN_SUCCEEDED", userData: user_data});
+    } catch (e) {
+        yield put({type: "SIGNIN_FAILED", message: e.message});
+    }
+}
+
 function* getBooksList () {
     try {
         const booksList = yield call(services.getBooksList);
@@ -62,6 +71,7 @@ function* deleteBook (action) {
 
 export function* mySaga() {
     yield takeEvery("LOG_IN", onLogin);
+    yield takeEvery("SIGN_IN", onSignin);
     yield takeEvery("GET_BOOKS_LIST", getBooksList);
     yield takeEvery("PURCHASE_BOOK", purchaseBook);
     yield takeEvery("UPDATE_BOOK", updateBook);

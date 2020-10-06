@@ -17,6 +17,18 @@ export const login = async (email, password) => {
     }
 };
 
+export const signin = async (email, password, type) => {
+    console.log("in service");
+    try {
+        let res = await axios.post(`http://localhost:3001/user/register`, {email : email, password: password, type: type});
+        console.log("res : ", res);
+        return res.data;
+    }
+    catch (err) {
+        throw err;
+    }
+};
+
 export const getBooksList = async () => {
     try {
         let res =  await axios.get(`http://localhost:3001/user/books`);

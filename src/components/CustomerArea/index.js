@@ -1,14 +1,24 @@
 import React from 'react';
+import SearchBook from "../SearchBook";
+import {Purchase} from "../Purchase";
 
 
-const CustomerArea = ({}) => {
+export const CustomerArea = (props) => {
     return (
         <div >
-            Customer
-            {/*this.props.isLoggedIn ?*/}
-            {/*<SearchBook/>*/}
+            {props.booksList.length === 0 ?
+                <h4>Waiting for books...</h4> :
+                <div>
+                    <SearchBook  bookSelected={props.bookSelected} booksList={props.booksList} selectBook={props.selectBook} />
+                    {console.log("this.props.bookSelected : ", props.bookSelected)}
+                    {props.bookSelected ?
+                        <Purchase bookSelected={props.bookSelected} isLoggedOn={props.isLoggedOn}
+                                  purchaseBook={props.purchaseBook}
+                        />:
+                        null}
+                </div>
+            }
         </div>
     );
 };
 
-export default CustomerArea;

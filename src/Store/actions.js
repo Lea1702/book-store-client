@@ -1,10 +1,19 @@
 
 export function onLogIn (email, password) {
-    console.log("action");
     return{
         type: "LOG_IN",
         email: email,
         password: password
+    }
+}
+
+
+export function onSignin (email, password, type1) {
+    return{
+        type: "SIGN_IN",
+        email: email,
+        password: password,
+        type1: type1
     }
 }
 
