@@ -2,6 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import * as services from '../services/services'
 import 'react-toastify/dist/ReactToastify.css';
+import Button from '@material-ui/core/Button';
 
 
 export  class Purchase extends React.Component {
@@ -19,9 +20,9 @@ export  class Purchase extends React.Component {
 
             <div>
             {this.props.isLoggedOn ?
-                <button onClick={(e) => this.handlePurchase(e)}>Purchase</button> :
+                <Button className="button1" variant="contained" color="primary" onClick={(e) => this.handlePurchase(e)}>Purchase</Button> :
                 <div>
-                    <button onClick={(e)=>this.notify(e)}>Purchase</button>
+                    <Button  className="button1" variant="contained" color="primary" onClick={(e)=>this.notify(e)}>Purchase</Button>
                 </div>
 
             }

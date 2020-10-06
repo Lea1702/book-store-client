@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import Login from "../../Containers/Login";
-import {SearchBook} from "../SearchBook";
-import {FormControl} from "react-bootstrap";
 import {toast} from "react-toastify";
+import Button from '@material-ui/core/Button';
+
 
 export  class Create extends Component {
     constructor(props) {
@@ -31,7 +30,7 @@ export  class Create extends Component {
         return (
             <div>
                     {this.state.create?
-                        <div>
+                        <div className="Login">
 
                         <label>Title</label>
                 <input value={this.state.title}
@@ -40,12 +39,12 @@ export  class Create extends Component {
                 <input value={this.state.author}
                        onChange={e => this.setState({"author": e.target.value})} type="text"/>
                 <label>Publisher</label>
-                <input value={this.state.publisher}
+                <input  value={this.state.publisher}
                        onChange={e => this.setState({"publisher": e.target.value})} type="text"/>
-                <button disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Create</button>
-                        <button onClick={() => this.setState({"create": false})}>Cancel</button>
+                <Button variant="contained" color="primary" disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Create</Button>
+                        <Button variant="contained" color="primary" onClick={() => this.setState({"create": false})}>Cancel</Button>
                         </div>:
-                        <button onClick={() => this.setState({"create": true})}>Create</button>                        }
+                        <Button variant="contained" color="primary" onClick={() => this.setState({"create": true})}>Create</Button>                        }
                 </div>
         );
     }

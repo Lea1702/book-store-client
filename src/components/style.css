@@ -1,0 +1,56 @@
+.input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.Login {
+    padding: 5% 5%;
+    border: 1px solid #ccc;
+    border-radius: 4%;
+    margin: 2% 30% 2% 30%;
+    position: fixed;
+    background-color: white;
+    width: 20%;
+    height: 40%;
+    z-index: 10;
+}
+
+.searchable-input{
+    margin: 5% 25% 5% 25%;
+}
+
+.MuiButton-root{
+    /*margin-left: 1500% !important;*/
+}
+
+.searchable-list {
+    left: 25% !important;
+    width: 50% !important;
+}
+
+label {
+    color: black !important;
+}
+
+.button1 {
+    margin: 0 0 5% 45% !important;
+}
+
+.update {
+    margin: -8% 30% 2% 30% !important;
+}

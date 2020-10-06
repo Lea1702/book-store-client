@@ -4,6 +4,7 @@ import {SearchBook} from "../SearchBook";
 import {FormControl} from "react-bootstrap";
 import {toast} from "react-toastify";
 import {Create} from "./create";
+import Button from "@material-ui/core/Button";
 
 export  class Update extends Component {
     constructor(props) {
@@ -33,21 +34,21 @@ export  class Update extends Component {
         return (
             <div>
                 {this.state.update?
-            <div>
-                <label>Title</label>
+            <div className="Login update">
+                <label className="labelLogin">Title</label>
                 <input value={this.state.title}
                        onChange={e => this.setState({"title": e.target.value})} type="text"/>
-                <label>Author</label>
+                <label className="labelLogin">Author</label>
                 <input value={this.state.author}
                        onChange={e => this.setState({"author": e.target.value})} type="text"/>
-                <label>Publisher</label>
+                <label className="labelLogin">Publisher</label>
                 <input value={this.state.publisher}
                        onChange={e => this.setState({"publisher": e.target.value})} type="text"/>
 
-                <button disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Send update</button>
-                <button onClick={() => this.setState({"update": false})}>Cancel</button>
+                <Button className="button1" variant="contained" color="primary"  disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Send update</Button>
+                <Button className="button1" variant="contained" color="primary"  onClick={() => this.setState({"update": false})}>Cancel</Button>
             </div>:
-                <button onClick={() => this.setState({"update": true})}>Update</button>
+                <Button className="button1" variant="contained" color="primary"  onClick={() => this.setState({"update": true})}>Update</Button>
                 }
             </div>
         );

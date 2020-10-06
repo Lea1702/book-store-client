@@ -15,6 +15,7 @@ import {AdminArea} from "./components/AdminArea/index"
 import * as actionCreator from "./Store/actions"
 import {connect} from "react-redux";
 import {Create} from "./components/AdminArea/create";
+import {MenuBar} from "./components/AppBar";
 
 
 class App extends React.Component {
@@ -27,18 +28,8 @@ class App extends React.Component {
     render() {
         return (
             <Router>
+                <MenuBar onLogin={this.props.onLogin}  onLogout={this.props.onLogout}/>
                 <div>
-                    <ul>
-                    { this.props.isLoggedOn ?
-                        <Logout onLogout={this.props.onLogout}/>:
-                        <Login onLogin={this.props.onLogin}/>
-                    }
-                    </ul>
-                    <ul>
-                        <li><Link to="/public">Public Page</Link></li>
-                        <li><Link to="/admin">Admin Page</Link></li>
-                    </ul>
-
                     <Route path="/public" >
                         {this.props.booksList.length === 0 ?
                             <h4>Waiting for books...</h4> :

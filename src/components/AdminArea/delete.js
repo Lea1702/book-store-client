@@ -3,6 +3,7 @@ import Login from "../../Containers/Login";
 import {SearchBook} from "../SearchBook";
 import {FormControl} from "react-bootstrap";
 import {toast} from "react-toastify";
+import Button from "@material-ui/core/Button";
 
 export  class Delete extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ export  class Delete extends Component {
 
     render(){
         return (
-                <button onClick={(e) => this.handleSubmit(e)}>Delete book</button>
+                <Button className="button1" variant="contained" color="secondary"  onClick={(e) => this.handleSubmit(e)}>Delete book</Button>
         );
     }
 

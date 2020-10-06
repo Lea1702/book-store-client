@@ -1,4 +1,5 @@
 import React from "react";
+import Button from '@material-ui/core/Button';
 
 export  class Logout extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ export  class Logout extends React.Component {
     render(){
         return (
 
-                <button onClick={(e) => this.handleSubmit(e)}>Log out</button>
+                <Button variant="contained" color="primary" onClick={(e) => this.handleSubmit(e)}>Log out</Button>
 
             )
     }

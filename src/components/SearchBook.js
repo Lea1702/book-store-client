@@ -2,7 +2,7 @@ import React from "react";
 import Searchable from 'react-searchable-dropdown';
 import * as actionCreator from "../Store/actions";
 import {connect} from "react-redux";
-
+import "./style.css"
 export class SearchBook extends React.Component {
 
 
@@ -35,6 +35,7 @@ export class SearchBook extends React.Component {
     render(){
         return (
         <Searchable
+            className="dropdown"
             value="" //if value is not item of options array, it would be ignored on mount
             placeholder="Search" // by default "Search"
             notFoundText="No result found" // by default "No result found"
