@@ -1,15 +1,19 @@
-import React, { useState } from "react";
-import {  FormGroup, FormControl } from "react-bootstrap";
+import React from "react";
+import { FormControl } from "react-bootstrap";
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-
 import "../style.css";
+import {connect} from "react-redux";
+import {onSignin} from "../../Store/actions";
+import {ToastContainer} from "react-toastify";
 
-
-export  class Signin extends React.Component {
+class Signin extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: '', type: '', clicked: false, appears: true};
+        this.state = {email: '', password: '', type: '', appears: false};
+    }
+
+    handleCancel(e) {
+        this.setState({appears: false});
     }
 
     validateForm() {
@@ -20,12 +24,12 @@ export  class Signin extends React.Component {
         this.setState({appears: false});
         this.props.onSignin(this.state.email, this.state.password, this.state.type);
     }
+
     render(){
         return (
             <div>
-                {!this.state.clicked?
-                <Button color="inherit" onClick={(e) => this.setState({"clicked": true})}>Signin</Button>:
-                this.state.appears ?
+                <Button color="inherit" onClick={(e) => this.setState({"appears": true})}>Signin</Button>
+                {this.state.appears ?
                     <div className="Login">
                         <h3 className="labelLogin">Signin</h3>
                         <form>
@@ -57,11 +61,11 @@ export  class Signin extends React.Component {
                             />
                         </form>
                     <Button variant="contained" color="primary" disabled={!this.validateForm()} onClick={(e) => this.handleSubmit(e)}>Sign in</Button>
-                    </div> : null
-
-            }
+                        <Button variant="contained" color="primary"  onClick={(e) => this.handleCancel(e)}>Cancel</Button>
+                    </div> : null }
+                <ToastContainer />
             </div>)
     }
 };
 
-export default Signin;
+export default connect(null, {onSignin})(Signin);

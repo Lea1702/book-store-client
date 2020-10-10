@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {toast} from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 import Button from '@material-ui/core/Button';
+import {connect} from "react-redux";
+import {onCreateBook, getBooksList} from "../../Store/actions";
 
-
-export  class Create extends Component {
+class Create extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,7 +33,6 @@ export  class Create extends Component {
             <div >
                     {this.state.create?
                         <div className="Login update">
-
                         <label>Title</label>
                 <input value={this.state.title}
                        onChange={e => this.setState({"title": e.target.value})} type="text"/>
@@ -46,9 +46,17 @@ export  class Create extends Component {
                         <Button  className="create" variant="contained" color="primary" onClick={() => this.setState({"create": false})}>Cancel</Button>
                         </div>:
                         <Button  className="create" variant="contained" color="primary" onClick={() => this.setState({"create": true})}>Create</Button>                        }
-                </div>
+                <ToastContainer />
+
+            </div>
         );
     }
-
 }
 
+const mapStateToProps = state => {
+    return {
+        booksList: state.booksList
+    }
+};
+
+export default connect(mapStateToProps, {onCreateBook, getBooksList})(Create);

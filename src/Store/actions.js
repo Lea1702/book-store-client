@@ -1,12 +1,10 @@
-
-export function onLogIn (email, password) {
+export function onLogin (email, password) {
     return{
         type: "LOG_IN",
         email: email,
         password: password
     }
 }
-
 
 export function onSignin (email, password, type1) {
     return{
@@ -34,11 +32,12 @@ export const selectBook = (book) => {
     )
 };
 
-export const purchaseBook = (book_id) => {
+export const purchaseBook = (book_id, book_title) => {
     return (
         {
             type: "PURCHASE_BOOK",
-            book_id: book_id
+            book_id: book_id,
+            book_title: book_title
         }
     )
 };
@@ -61,7 +60,6 @@ export const onUpdateBook = (title, publisher, author, id) => {
     )
 };
 
-
 export const onCreateBook = (title, publisher, author) => {
     return (
         {
@@ -70,7 +68,6 @@ export const onCreateBook = (title, publisher, author) => {
         }
     )
 };
-
 
 export function onLogout () {
     return{

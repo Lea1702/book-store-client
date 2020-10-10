@@ -1,24 +1,36 @@
 import React from 'react';
 import SearchBook from "../SearchBook";
-import {Purchase} from "../Purchase";
+import Purchase from "../Purchase";
+import {connect} from "react-redux";
+import {PurchasedBooks} from "../PurchasedBooks";
 
-
-export const CustomerArea = (props) => {
+const CustomerArea = (props) => {
     return (
         <div >
             {props.booksList.length === 0 ?
                 <h4>Waiting for books...</h4> :
                 <div>
-                    <SearchBook  bookSelected={props.bookSelected} booksList={props.booksList} selectBook={props.selectBook} />
-                    {console.log("this.props.bookSelected : ", props.bookSelected)}
+                    <SearchBook/>
                     {props.bookSelected ?
-                        <Purchase bookSelected={props.bookSelected} isLoggedOn={props.isLoggedOn}
-                                  purchaseBook={props.purchaseBook}
-                        />:
+                        <Purchase  />:
                         null}
                 </div>
             }
+            {props.purchasedBooks.length === 0 ?
+                null:
+            <PurchasedBooks purchasedBooks={props.purchasedBooks}/>}
         </div>
     );
 };
+
+const mapStateToProps = state => {
+    return {
+        booksList: state.booksList,
+        bookSelected: state.bookSelected,
+        purchasedBooks: state.purchasedBooks,
+        purchasedBooksLength: state.purchasedBooks.length
+    }
+};
+
+export default connect(mapStateToProps)(CustomerArea);
 

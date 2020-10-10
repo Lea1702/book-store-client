@@ -1,7 +1,9 @@
 import React from "react";
 import Button from '@material-ui/core/Button';
+import {connect} from "react-redux";
+import {onLogout} from '../Store/actions'
 
-export  class Logout extends React.Component {
+class Logout extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -11,10 +13,9 @@ export  class Logout extends React.Component {
     }
     render(){
         return (
-
                 <Button variant="contained" color="inherit"  onClick={(e) => this.handleSubmit(e)}>Log out</Button>
-
             )
     }
 }
 
+export default connect(null, {onLogout})(Logout);

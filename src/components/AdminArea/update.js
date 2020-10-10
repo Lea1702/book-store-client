@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
-import {SearchBook} from "../SearchBook";
-import {FormControl} from "react-bootstrap";
-import {toast} from "react-toastify";
-import {Create} from "./create";
+import {toast, ToastContainer} from "react-toastify";
 import Button from "@material-ui/core/Button";
 import {connect} from "react-redux";
+import {onUpdateBook, getBooksList} from "../../Store/actions";
 
-export class Update extends Component {
+class Update extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log("props.bookSelected : ", props.bookSelected);
         this.state = {update: false, title: props.bookSelected.title, publisher: props.bookSelected.publisher, author: props.bookSelected.author};
     }
 
@@ -21,7 +18,6 @@ export class Update extends Component {
     handleSubmit(event) {
         try {
             this.props.onUpdateBook(this.state.title, this.state.publisher, this.state.author, this.props.bookSelected.id);
-            toast("Book updated successfully !");
             this.setState({"update": false})
             this.props.getBooksList();
         }
@@ -29,7 +25,6 @@ export class Update extends Component {
             toast("could not update book");
         }
     }
-
 
     render(){
         return (
@@ -51,6 +46,7 @@ export class Update extends Component {
             </div>:
                 <Button className="button1" variant="contained" color="primary"  onClick={() => this.setState({"update": true})}>Update</Button>
                 }
+                <ToastContainer />
             </div>
         );
     }
@@ -62,5 +58,5 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Update)
+export default connect(mapStateToProps, {onUpdateBook, getBooksList})(Update)
 
